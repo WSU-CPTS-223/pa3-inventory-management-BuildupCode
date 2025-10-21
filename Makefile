@@ -1,7 +1,7 @@
 out: clean compile execute
 
-compile: main.cpp
-	g++ -g -Wall -std=c++14 main.cpp -o mainexe
+compile: $(wildcard src/*.cpp)
+	g++ -g -Wall -std=c++11 -Iinclude $^ -o mainexe
 
 execute: mainexe
 	./mainexe

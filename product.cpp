@@ -19,7 +19,7 @@ const Vector<std::string>& Product::getCategories() const{
     return categories;
 }
 
-void Product::setCategories(const Vector<std::string/*>*/& cats){
+void Product::setCategories(const Vector<std::string& cats){
     categories = cats;
 }
 

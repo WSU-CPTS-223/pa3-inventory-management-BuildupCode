@@ -14,10 +14,10 @@ private:
         V value;
         bool occupied;
         bool deleted;
-        Entry() : occupied(false), delete(false){}
+        Entry() : occupied(false), deleted(false){}
     };
-    //arrat,numbet for count,number for rehashing
-    vector<Entry> table;
+    //array,number for count,number for rehashing
+    Vector<Entry> table;
     std::size_t count;
     double load_factor;
 
@@ -33,10 +33,10 @@ private:
 
         for(std::size_t i = 0;i<oldTable.size();i++){
             //access each entry
-            const Enrty& enrty = oldTable[i];
+            const Entry& entry = oldTable[i];
             //insert again
-            if(enrty.occupied&&!enrty.deleted){
-                insert(entry.key,enrty.value);
+            if(entry.occupied&&!entry.deleted){
+                insert(entry.key,entry.value);
             }
         }
     }
@@ -54,8 +54,8 @@ public:
         }
         //set initial index
         std::size_t index = hashKey(key);
-        for(std::size_t i = 0;i<table.sie();i++){
-            std::size_t probe = (index)%table.size();
+        for(std::size_t i = 0;i<table.size();i++){
+            std::size_t probe = (index+i)%table.size();
             Entry& entry = table[probe];
 
             if(!entry.occupied || entry.deleted){
@@ -79,14 +79,14 @@ public:
         //set initial index
         std::size_t index = hashKey(key);
         for(std::size_t i = 0;i<table.size();i++){
-            std::size_t probe = (index)%table.size();
+            std::size_t probe = (index+i)%table.size();
             //access the probe slot to check(below)
             const Entry& entry = table[probe];
             //key is not found
             if(!entry.occupied&&!entry.deleted){
                 return false;
             }
-            //ket is exist
+            //key is exist
             if(entry.occupied&&!entry.deleted&&entry.key == key){
                 out = entry.value;
                 return true;
@@ -95,10 +95,10 @@ public:
         //key is not exist in any probe
         return false;
     }
-
+    //need function for erase to use in test case
     bool contains(const K& key) const{
         //temporary variable
-        V tmep;
+        V temp;
         //use find to check
         return find(key,temp);
     }

@@ -95,7 +95,30 @@ public:
         //key is not exist in any probe
         return false;
     }
-    //need function for erase to use in test case
+    //erase key and value pair if exist
+    bool erase(const K& key){
+        //set initial index
+        std::size_t index = hashKey(key);
+        //probe through table(linear probing)
+        for(std::size_t i = 0;i<table.size();i++){
+            std::size_t probe = (index+i)%table.size();
+            Entry& entry = table[probe];
+            //check empty slot
+            if(!entry.occupied&&!entry.deleted){
+                //stop finding
+                return false;
+            }
+            //if slot is occupied and key is same.
+            if(entry.occupied&&!entry.deleted&&entry.key == key){
+                entry.deleted = true;
+                count--;
+                return true;
+            }
+        }
+        //cannot find key in whole probe
+        return false;
+    }
+
     bool contains(const K& key) const{
         //temporary variable
         V temp;

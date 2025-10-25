@@ -9,22 +9,22 @@ class Parser{
 public:
     //change comment later here
     //read from csv(expected)
-    struct ParsedRecird{
+    struct ParsedRecord{
         std::string uniq_id;
         std::string product_name;
         std::string category_raw;
     };
     //parse 1 line from csv
     //if success, return true.
-    static bool  parseCsvLine(const std::string& line, ParsedRecird& output);
+    static bool  parseCsvLine(const std::string& line, ParsedRecord& output);
     //divide category  string by '|'. If raw is empty, fill 'NA'
-    static Vector<std::string> parseCategories(const std::string& category_new);
+    static Vector<std::string> parseCategories(const std::string& category_raw);
     //make product from parsed record
-    static Product makeProduct(const ParsedRecird& record);
+    static Product makeProduct(const ParsedRecord& record);
     //remove whitespace from string
-    static std::string trim(const std::string& string);
+    static std::string trim(const std::string& str);
     //remove quote from string
-    static std::string removeQuote(const std::string& string);
+    static std::string removeQuote(const std::string& str);
 
 private:
     //extract next csv field starting at position

@@ -8,9 +8,9 @@
 class Inventory {
 private:
     //hashmap to find product by id
-    HashMap<std::string, Product> id;
+    HashMap<std::string, Product> by_id;
     //hashmap mapping category to product id
-    HashMap<std::string, Vector<std::string>> category;
+    HashMap<std::string, Vector<std::string>> by_category;
 public:
     //add new product (id,category)
     void AddProduct(const Product& item);

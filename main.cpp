@@ -35,6 +35,10 @@ void evalCommand(string line)
         // Look up the appropriate datastructure to find if the inventory exist
         //start from index 5
         //This will work if input is 'find something'
+        if(line.size()<=5||line[4] = ' '){
+            cout<<"Invalid command format."<<endl;
+            return;
+        }
         string id = line.substr(5);
         Product product_for_find;
         //find product by id from inventory
@@ -45,11 +49,15 @@ void evalCommand(string line)
         }
     }
     // if line starts with listInventory
-    else if (line.rfind("listInventory") == 0)
+    else if (line.rfind("listInventory", 0) == 0)
     {
         // Look up the appropriate datastructure to find all inventory belonging to a specific category
         //start from index 13
         //This will work if input is 'listInventory something'
+         if(line.size()<=13||line[12] = ' '){
+            cout<<"Invalid command format."<<endl;
+            return;
+        }
         string cat = line.substr(13);
         Vector<Product> result;
         //find product by category
@@ -59,7 +67,7 @@ void evalCommand(string line)
                 cout<<result[i].getId()<<"|"<<result[i].getName()<<endl;
             }
         }else{
-            cout<<"Invalid catgory"<<endl;
+            cout<<"Invalid category"<<endl;
         }
     }
 }
@@ -76,7 +84,7 @@ void bootStrap()
 
     //open csv file 
     //change name later
-    ifstream file("csv");
+    ifstream file("marketing_sample_for_amazon_com-ecommerce__20200101_20200131__10k_data.csv");
     //cannot open file
     if(!file){
         cout<<"Cannot open csv file"<<endl;

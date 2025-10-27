@@ -9,7 +9,8 @@
 template <typename K, typename V>
 class HashMap{
 private:
-    struct Entry{
+    class Entry{
+    public:
         K key;
         V value;
         bool occupied;

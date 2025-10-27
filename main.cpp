@@ -35,11 +35,17 @@ void evalCommand(string line)
         // Look up the appropriate datastructure to find if the inventory exist
         //start from index 5
         //This will work if input is 'find something'
-        if(line.size()<=5||line[4] = ' '){
+        if(line.size()<=5||line[4] != ' '){
             cout<<"Invalid command format."<<endl;
             return;
         }
-        string id = line.substr(5);
+        //remove extra whitespace
+        string id = Parser::trim(line.substr(5));
+        //if user input is missing whitespace or nothing for id
+        if(id.empty()){
+            cout<<"Invalid command format."<<endl;
+            return;
+        }
         Product product_for_find;
         //find product by id from inventory
         if(inventory.FindId(id,product_for_find)){
@@ -54,11 +60,17 @@ void evalCommand(string line)
         // Look up the appropriate datastructure to find all inventory belonging to a specific category
         //start from index 13
         //This will work if input is 'listInventory something'
-         if(line.size()<=13||line[12] = ' '){
+         if(line.size()<=13||line[12] != ' '){
             cout<<"Invalid command format."<<endl;
             return;
         }
-        string cat = line.substr(13);
+        //remove extra whitespace
+        string cat = Parser::trim(line.substr(13));
+        //if user input is missing whitespace or nothing for id
+        if(cat.empty()){
+            cout<<"Invalid command format."<<endl;
+            return;
+        }        
         Vector<Product> result;
         //find product by category
         if(inventory.CategoryList(cat,result)){
@@ -67,7 +79,7 @@ void evalCommand(string line)
                 cout<<result[i].getId()<<"|"<<result[i].getName()<<endl;
             }
         }else{
-            cout<<"Invalid category"<<endl;
+            cout<<"Invalid Category"<<endl;
         }
     }
 }
@@ -83,7 +95,6 @@ void bootStrap()
     // use proper programming practices
 
     //open csv file 
-    //change name later
     ifstream file("marketing_sample_for_amazon_com-ecommerce__20200101_20200131__10k_data.csv");
     //cannot open file
     if(!file){

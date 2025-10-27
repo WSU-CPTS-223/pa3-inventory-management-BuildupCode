@@ -1,7 +1,11 @@
 #include <iostream>
 #include <string>
+#include <fstream>
+#include "parser.h"
+#include "inventory.h"
 
 using namespace std;
+Inventory inventory;
 
 void printHelp()
 {
@@ -29,13 +33,34 @@ void evalCommand(string line)
     else if (line.rfind("find", 0) == 0)
     {
         // Look up the appropriate datastructure to find if the inventory exist
-        cout << "YET TO IMPLEMENT!" << endl;
+        //start from index 5
+        //This will work if input is 'find something'
+        string id = line.substr(5);
+        Product product_for_find;
+        //find product by id from inventory
+        if(inventory.FindId(id,product_for_find)){
+            product_for_find.printDetails();
+        }else{
+            cout<<"Inventory/Product not found"<<endl;
+        }
     }
     // if line starts with listInventory
     else if (line.rfind("listInventory") == 0)
     {
         // Look up the appropriate datastructure to find all inventory belonging to a specific category
-        cout << "YET TO IMPLEMENT!" << endl;
+        //start from index 13
+        //This will work if input is 'listInventory something'
+        string cat = line.substr(13);
+        Vector<Product> result;
+        //find product by category
+        if(inventory.CategoryList(cat,result)){
+            //print all id and name in product
+            for(size_t i = 0;i<result.size();i++){
+                cout<<result[i].getId()<<"|"<<result[i].getName()<<endl;
+            }
+        }else{
+            cout<<"Invalid catgory"<<endl;
+        }
     }
 }
 
@@ -48,6 +73,29 @@ void bootStrap()
     // example: reading from CSV and initializing the data structures
     // Don't dump all code into this single function
     // use proper programming practices
+
+    //open csv file 
+    //change name later
+    ifstream file("csv");
+    //cannot open file
+    if(!file){
+        cout<<"Cannot open csv file"<<endl;
+        return;
+    }
+    string line;
+    //skip header
+    getline(file,line);
+    while(getline(file,line)){
+        Parser::ParsedRecord record;
+        //parse line into record
+        if(Parser::parseCsvLine(line,record)){
+            //create product by record
+            Product new_product = Parser::makeProduct(record);
+            //add product in inventory
+            inventory.AddProduct(new_product);
+        }
+    }
+    cout<<"Inventory loaded"<<endl;
 }
 
 int main(int argc, char const *argv[])

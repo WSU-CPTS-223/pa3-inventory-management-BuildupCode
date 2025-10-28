@@ -23,18 +23,23 @@ private:
     double load_factor;
 
     std::size_t hashKey(const K& key) const{
+        //check table size
+        if(table.size()==0){
+            throw std::runtime_error("HashMap is empty");
+        }
         return std::hash<K>{}(key) % table.size();
     }
     //make table larger and insert all valid stuff again if load factor is exceed
     void rehash(){
-        Vector<Entry> oldTable = table;
+        Vector<Entry> old_table = table;
         table.clear();
-        table.resize(oldTable.size()*2);
+        std::size_t new_size = old_table.size() == 0 ? 8 : old_table.size()*2;
+        table.resize(new_size);
         count = 0;
 
-        for(std::size_t i = 0;i<oldTable.size();i++){
+        for(std::size_t i = 0;i<old_table.size();i++){
             //access each entry
-            const Entry& entry = oldTable[i];
+            const Entry& entry = old_table[i];
             //insert again
             if(entry.occupied&&!entry.deleted){
                 insert(entry.key,entry.value);
@@ -44,7 +49,6 @@ private:
 public:
 //constructor
     HashMap() : count(0), load_factor(0.7){
-        table = Vector<Entry>();
         table.resize(8);
     }
     //insert key value pair in map

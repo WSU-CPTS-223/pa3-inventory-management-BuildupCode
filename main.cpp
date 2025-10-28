@@ -60,12 +60,15 @@ void evalCommand(string line)
         // Look up the appropriate datastructure to find all inventory belonging to a specific category
         //start from index 13
         //This will work if input is 'listInventory something'
-         if(line.size()<=13||line[12] != ' '){
+         if(line.size()<=14||line[13] != ' '){
             cout<<"Invalid command format."<<endl;
             return;
         }
         //remove extra whitespace
-        string cat = Parser::trim(line.substr(13));
+        string cat = Parser::trim(line.substr(14));
+        //if cat is cover with " then remove it.
+        //if cat is not cover with " then let it go.
+        cat = Parser::removeQuote(cat);
         //if user input is missing whitespace or nothing for id
         if(cat.empty()){
             cout<<"Invalid command format."<<endl;
@@ -76,7 +79,7 @@ void evalCommand(string line)
         if(inventory.CategoryList(cat,result)){
             //print all id and name in product
             for(size_t i = 0;i<result.size();i++){
-                cout<<result[i].getId()<<"|"<<result[i].getName()<<endl;
+                cout<<result[i].getId()<<" | "<<result[i].getName()<<endl;
             }
         }else{
             cout<<"Invalid Category"<<endl;

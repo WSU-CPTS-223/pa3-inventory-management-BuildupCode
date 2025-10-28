@@ -17,17 +17,17 @@ public:
     Product();
     Product(const std::string& id, const std::string& name, const std::string& cat_raw);
     //return id
-    std::string getId() const;
+    std::string GetId() const;
     //return name
-    std::string getName() const;
+    std::string GetName() const;
     //return original category from csv
-    std::string getCategoryRaw() const;
+    std::string GetCategoryRaw() const;
     //return parsed category list
-    const Vector<std::string>& getCategories() const;
+    const Vector<std::string>& GetCategories() const;
     //set parsed category list
-    void setCategories(const Vector<std::string>& cats);
+    void SetCategories(const Vector<std::string>& cats);
     //printing informations
-    void printDetails() const;
+    void PrintDetails() const;
 
 };
 

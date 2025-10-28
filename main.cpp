@@ -1,3 +1,4 @@
+//Not change function name because these are skeleton code
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -35,21 +36,22 @@ void evalCommand(string line)
         // Look up the appropriate datastructure to find if the inventory exist
         //start from index 5
         //This will work if input is 'find something'
+        //check user type only find with whitespace
         if(line.size()<=5||line[4] != ' '){
-            cout<<"Invalid command format."<<endl;
+            cout<<"Invalid command format. Use command ':help' without ' for help."<<endl;
             return;
         }
         //remove extra whitespace
-        string id = Parser::trim(line.substr(5));
+        string id = Parser::Trim(line.substr(5));
         //if user input is missing whitespace or nothing for id
         if(id.empty()){
-            cout<<"Invalid command format."<<endl;
+            cout<<"Invalid command format. Please enter correct Unique id."<<endl;
             return;
         }
         Product product_for_find;
         //find product by id from inventory
         if(inventory.FindId(id,product_for_find)){
-            product_for_find.printDetails();
+            product_for_find.PrintDetails();
         }else{
             cout<<"Inventory/Product not found"<<endl;
         }
@@ -61,25 +63,25 @@ void evalCommand(string line)
         //start from index 13
         //This will work if input is 'listInventory something'
          if(line.size()<=14||line[13] != ' '){
-            cout<<"Invalid command format."<<endl;
+            cout<<"Invalid command format. Use command ':help' without ' for help."<<endl;
             return;
         }
         //remove extra whitespace
-        string cat = Parser::trim(line.substr(14));
+        string cat = Parser::Trim(line.substr(14));
         //if cat is cover with " then remove it.
         //if cat is not cover with " then let it go.
-        cat = Parser::removeQuote(cat);
+        cat = Parser::RemoveQuote(cat);
         //if user input is missing whitespace or nothing for id
         if(cat.empty()){
-            cout<<"Invalid command format."<<endl;
+            cout<<"Invalid command format. Please enter correct category."<<endl;
             return;
         }        
         Vector<Product> result;
         //find product by category
         if(inventory.CategoryList(cat,result)){
             //print all id and name in product
-            for(size_t i = 0;i<result.size();i++){
-                cout<<result[i].getId()<<" | "<<result[i].getName()<<endl;
+            for(size_t i = 0;i<result.Size();i++){
+                cout<<result[i].GetId()<<" | "<<result[i].GetName()<<endl;
             }
         }else{
             cout<<"Invalid Category"<<endl;
@@ -110,9 +112,9 @@ void bootStrap()
     while(getline(file,line)){
         Parser::ParsedRecord record;
         //parse line into record
-        if(Parser::parseCsvLine(line,record)){
+        if(Parser::ParseCsvLine(line,record)){
             //create product by record
-            Product new_product = Parser::makeProduct(record);
+            Product new_product = Parser::MakeProduct(record);
             //add product in inventory
             inventory.AddProduct(new_product);
         }

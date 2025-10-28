@@ -49,14 +49,14 @@ public:
     ~Vector() {
         delete[] data;
     }
-    std::size_t size() const{
+    std::size_t Size() const{
         return size_;
     }
     //add new data at the end of the array
-    void push_back(const T& value){
+    void PushBack(const T& value){
         if(size_ == capacity_){
             //space will be doubled.
-            reserve(capacity_ == 0 ? 1 : capacity_*2);
+            Reserve(capacity_ == 0 ? 1 : capacity_*2);
         }
         data[size_++] = value;
     }
@@ -78,11 +78,11 @@ public:
     }
     //clear vector
     //size = 0, but capacity will maintain => reuse space later
-    void clear(){
+    void Clear(){
         size_ = 0;
     }
     //change capacity to new_capacity
-    void reserve(std::size_t new_capacity){
+    void Reserve(std::size_t new_capacity){
         if(new_capacity <= capacity_){
             return;
         }
@@ -96,9 +96,9 @@ public:
     }
 
     //change size to new_size
-    void resize(std::size_t new_size){
+    void Resize(std::size_t new_size){
         if(new_size>capacity_){
-            reserve(new_size);
+            Reserve(new_size);
         }
         size_ = new_size;
     }

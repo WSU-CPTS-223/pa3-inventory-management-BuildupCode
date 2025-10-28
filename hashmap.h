@@ -17,50 +17,55 @@ private:
         bool deleted;
         Entry() : occupied(false), deleted(false){}
     };
+
+    //number for initial
+    static constexpr double DEFAULT_LOAD_FACTOR = 0.7;
+    static const std::size_t INITIAL_CAPACITY = 8;
+
     //array,number for count,number for rehashing
     Vector<Entry> table;
     std::size_t count;
     double load_factor;
 
-    std::size_t hashKey(const K& key) const{
+    std::size_t HashKey(const K& key) const{
         //check table size
-        if(table.size()==0){
+        if(table.Size()==0){
             throw std::runtime_error("HashMap is empty");
         }
-        return std::hash<K>{}(key) % table.size();
+        return std::hash<K>{}(key) % table.Size();
     }
     //make table larger and insert all valid stuff again if load factor is exceed
-    void rehash(){
+    void Rehash(){
         Vector<Entry> old_table = table;
-        table.clear();
-        std::size_t new_size = old_table.size() == 0 ? 8 : old_table.size()*2;
-        table.resize(new_size);
+        table.Clear();
+        std::size_t new_size = old_table.Size() == 0 ? INITIAL_CAPACITY : old_table.Size()*2;
+        table.Resize(new_size);
         count = 0;
 
-        for(std::size_t i = 0;i<old_table.size();i++){
+        for(std::size_t i = 0;i<old_table.Size();i++){
             //access each entry
             const Entry& entry = old_table[i];
             //insert again
             if(entry.occupied&&!entry.deleted){
-                insert(entry.key,entry.value);
+                Insert(entry.key,entry.value);
             }
         }
     }
 public:
 //constructor
-    HashMap() : count(0), load_factor(0.7){
-        table.resize(8);
+    HashMap() : count(0), load_factor(DEFAULT_LOAD_FACTOR){
+        table.Resize(INITIAL_CAPACITY);
     }
     //insert key value pair in map
-    bool insert(const K& key, const V& value){
-        if((double)count/table.size()>=load_factor){
+    bool Insert(const K& key, const V& value){
+        if((double)count/table.Size()>=load_factor){
             //make table larger
-            rehash();
+            Rehash();
         }
         //set initial index
-        std::size_t index = hashKey(key);
-        for(std::size_t i = 0;i<table.size();i++){
-            std::size_t probe = (index+i)%table.size();
+        std::size_t index = HashKey(key);
+        for(std::size_t i = 0;i<table.Size();i++){
+            std::size_t probe = (index+i)%table.Size();
             Entry& entry = table[probe];
 
             if(!entry.occupied || entry.deleted){
@@ -80,11 +85,11 @@ public:
         return false;
     }
     //find value by key and store it in 'out'
-    bool find(const K& key, V& out) const{
+    bool Find(const K& key, V& out) const{
         //set initial index
-        std::size_t index = hashKey(key);
-        for(std::size_t i = 0;i<table.size();i++){
-            std::size_t probe = (index+i)%table.size();
+        std::size_t index = HashKey(key);
+        for(std::size_t i = 0;i<table.Size();i++){
+            std::size_t probe = (index+i)%table.Size();
             //access the probe slot to check(below)
             const Entry& entry = table[probe];
             //key is not found
@@ -101,12 +106,12 @@ public:
         return false;
     }
     //erase key and value pair if exist
-    bool erase(const K& key){
+    bool Erase(const K& key){
         //set initial index
-        std::size_t index = hashKey(key);
+        std::size_t index = HashKey(key);
         //probe through table(linear probing)
-        for(std::size_t i = 0;i<table.size();i++){
-            std::size_t probe = (index+i)%table.size();
+        for(std::size_t i = 0;i<table.Size();i++){
+            std::size_t probe = (index+i)%table.Size();
             Entry& entry = table[probe];
             //check empty slot
             if(!entry.occupied&&!entry.deleted){
@@ -124,11 +129,11 @@ public:
         return false;
     }
 
-    bool contains(const K& key) const{
+    bool Contains(const K& key) const{
         //temporary variable
         V temp;
         //use find to check
-        return find(key,temp);
+        return Find(key,temp);
     }
 };
 

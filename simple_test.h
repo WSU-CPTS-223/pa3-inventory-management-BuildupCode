@@ -9,28 +9,28 @@
 #include "vector.h"
 #include "product.h"
 //check condition is true
-inline void checkTrue(bool condition){
+inline void CheckTrue(bool condition){
     assert(condition);
 }
 //check two string is same
-inline void checkEqualityString(const std::string& a, const std::string& b){
+inline void CheckEqualityString(const std::string& a, const std::string& b){
     assert(a == b);
 }
 //check two integer is same
-inline void checkEqualityInt(int a, int b){
+inline void CheckEqualityInt(int a, int b){
     assert(a == b);
 }
 //test functions
-void testVectorBasic();
-void testVectorEdge();
+void TestVectorBasic();
+void TestVectorEdge();
 
-void testHashmapBasic();
-void testHashampEmptyKey();
+void TestHashmapBasic();
+void TestHashmapEmptyKey();
 
-void testInventoryBasic();
-void testInventoryInvalidId();
-void testInventoryInvalidCategory();
+void TestInventoryBasic();
+void TestInventoryInvalidId();
+void TestInventoryInvalidCategory();
 
-void testAll();
+void TestAll();
 
 #endif

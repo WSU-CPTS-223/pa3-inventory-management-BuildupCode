@@ -16,21 +16,21 @@ public:
     };
     //parse 1 line from csv
     //if success, return true.
-    static bool  parseCsvLine(const std::string& line, ParsedRecord& output);
+    static bool  ParseCsvLine(const std::string& line, ParsedRecord& output);
     //divide category  string by '|'. If raw is empty, fill 'NA'
-    static Vector<std::string> parseCategories(const std::string& category_raw);
+    static Vector<std::string> ParseCategories(const std::string& category_raw);
     //make product from parsed record
-    static Product makeProduct(const ParsedRecord& record);
+    static Product MakeProduct(const ParsedRecord& record);
     //remove whitespace from string
-    static std::string trim(const std::string& str);
+    static std::string Trim(const std::string& str);
     //remove quote from string
-    static std::string removeQuote(const std::string& str);
+    static std::string RemoveQuote(const std::string& str);
 
 private:
     //extract next csv field starting at position
-    static std::string readCsvField(const std::string& line, std::size_t& position);
+    static std::string ReadCsvField(const std::string& line, std::size_t& position);
     //check whitespace is space, tab, CR or LF
-    static bool checkWhitespace(char w);
+    static bool CheckWhitespace(char w);
 
 };
 

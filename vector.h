@@ -15,20 +15,50 @@ private:
 public:
     //constructor and destructor
     Vector() : data(nullptr), size_(0), capacity_(0){}
+    //copy constructor for deep copy from another vector
+    Vector(const Vector&other):data(nullptr),size_(other.size_),capacity_(other.capacity_){
+        if(capacity_>0){
+            data = new T[capacity_];
+            //copy elements
+            for(std::size_t i = 0;i<size_;i++){
+                data[i] = other.data[i];
+            }
+        }
+    }
+    //copy assignment operator
+    Vector& operator=(const Vector& other){
+        if(this != &other){
+            T* new_data = nullptr;
+            if(other.capacity_>0){
+                new_data = new T[other.capacity_];
+                //copy elements
+                for(std::size_t i = 0;i<other.size_;i++){
+                    new_data[i] = other.data[i];
+                }
+            }
+            //free old memory
+            delete[] data;
+            data = new_data;
+            //cop size and capacity
+            size_ = other.size_;
+            capacity_ = other.capacity_;
+        }
+        return *this;
+    }
+
     ~Vector() {
         delete[] data;
+    }
+    std::size_t size() const{
+        return size_;
     }
     //add new data at the end of the array
     void push_back(const T& value){
         if(size_ == capacity_){
             //space will be doubled.
-            resize(capacity_ == 0 ? 1 : capacity_*2);
+            reserve(capacity_ == 0 ? 1 : capacity_*2);
         }
         data[size_++] = value;
-    }
-
-    std::size_t size() const{
-        return size_;
     }
     //operator - access as non const = free to change
     T& operator[](std::size_t index){
@@ -51,18 +81,26 @@ public:
     void clear(){
         size_ = 0;
     }
-    //function to extend space if array have no more space
-    void resize(std::size_t newCap){
-        T* newData = new T[newCap];
+    //change capacity to new_capacity
+    void reserve(std::size_t new_capacity){
+        if(new_capacity <= capacity_){
+            return;
+        }
+        T* new_data = new T[new_capacity];
         for(std::size_t i = 0;i<size_;i++){
-            newData[i] = data[i];
+            new_data[i] = data[i];
         }
         delete[] data;
-        data = newData;
-        capacity_ = newCap;
-        if(size_>newCap){
-            size_ = newCap;
+        data = new_data;
+        capacity_ = new_capacity;
+    }
+
+    //change size to new_size
+    void resize(std::size_t new_size){
+        if(new_size>capacity_){
+            reserve(new_size);
         }
+        size_ = new_size;
     }
 };
 

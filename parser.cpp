@@ -11,6 +11,8 @@
         //get info from csv file
         std::string id = readCsvField(line,position);
         std::string name = readCsvField(line,position);
+        std::string brand = readCsvField(line,position);
+        std::string asin = readCsvField(line,position);
         std::string category = readCsvField(line,position);
         //if no id or name
         if(id.empty()||name.empty()){

@@ -1,13 +1,34 @@
 Young Uk Kim and WSU ID:011809991
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/pAwGQi_N)
 
-# Programming Assignment 3
+# How to run my code.
+1. Download the project.
+
+2. Unzip the file.
+
+3. Open the terminal.
+
+4. Navigate to the folder you downloaded.
+
+5. Use the command below to move into the cloned folder:
+- cd pa3-inventory-management-BuildupCode
+
+6. Use the command below to compile:
+- make out for pa3
+    - (Makefile will automatically compile the main project when you type 'make out' in terminal.)
+- make test for pa3 simple_test
+    - (Makefile will automatically compile the test project when you type 'make test' in terminal.)
+
+7. Use the command below to run the program:
+- ./mainexe for main project.
+- ./testexe for test project.
+
+## Programming Assignment 3 Overview
 **Inventory Management System**
 CPTS_223 Advanced Data Structures in C++
 Young Uk Kim
 WSU ID:011809991
 
-## Assignment Overview
 This project implements a command line REPL application for querying an Amazon-style product inventory.
 The system supports 2 primary commands:
 1. **find <inventoryid>**
@@ -115,13 +136,7 @@ The application is built using custom data structure(no STL containers) and incl
 - Validate optimization correctness (FindMutable updates in place)
 - Ensure robustness against invalid queries.
 
-##### Complexity Analysis
-- **Insert Product**: Adding a product involves inserting it into the hash map and appending its ID to the category vector. Hash map insertion is average O(1) but can be O(n) in worst-case. Overall complexity: average O(1), worst-case O(n).
-- **Find by ID**: Searching a product by unique ID is a hash map search. This runs in average O(1) time, but in the worst case with collisions it can take O(n).
-- **List by Category**: Listing products in a category requires a hash map lookup of the category string (average O(1)), then iterating through k product IDs in that category and retrieving each product. Overall complexity: average O(k), where k is the number of products in the category.
-- **CSV Parsing**: The parser reads the CSV file line by line and processes each field. If there are n lines, the total parsing complexity is O(n).
-
-###### Data Handling
+##### Data Handling
 - Categories are split by '|'.
 - Missing categories are replaced with "NA".
 - Whitespace at the beginning and end is removed.
@@ -132,29 +147,11 @@ The application is built using custom data structure(no STL containers) and incl
     - If a category string is empty after trimming and splitting, "NA" is inserted to ensure every product has at least 1 category. 
     - This guarantees consistent indexing in by_category.
 
-###### How to run my code.
-1. Download the project.
 
-2. Unzip the file.
+# PA3 Skeleton Code
+We expect a fully functioning command line REPL application for an inventory querying system. Feel free to modify the skeleton code as you see fit.
 
-3. Open the terminal.
-
-4. Navigate to the folder you downloaded.
-
-5. Use the command below to move into the cloned folder:
-- cd pa3-inventory-management-BuildupCode
-
-6. Use the command below to compile:
-- make out for pa3
-    - (Makefile will automatically compile the main project when you type 'make out' in terminal.)
-- make test for pa3 simple_test
-    - (Makefile will automatically compile the test project when you type 'make test' in terminal.)
-
-7. Use the command below to run the program:
-- ./mainexe for main project.
-- ./testexe for test project.
-
-###### How to run the current skeleton code
+### How to run the current skeleton code
 `make` will compile and execute the skeleton code
 
 Feel free to modify Makefile as you see fit.

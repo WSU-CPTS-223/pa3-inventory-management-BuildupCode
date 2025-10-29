@@ -7,7 +7,12 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "*.cpp",
+                "main.cpp",
+                "vector.h",
+                "product.cpp",
+                "parser.cpp",
+                "inventory.cpp",
+                "hashmap.h",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

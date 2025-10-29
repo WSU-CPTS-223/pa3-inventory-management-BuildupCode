@@ -105,6 +105,21 @@ public:
         //key is not exist in any probe
         return false;
     }
+    V* FindMutable(const K& key){
+        std::size_t index = HashKey(key);
+        for(std::size_t i = 0;i<table.Size();i++){
+            std::size_t probe = (index+i)%table.Size();
+            Entry& entry = table[probe];
+            if(!entry.occupied&&!entry.deleted){
+                return nullptr;
+            }
+            if(entry.occupied&&!entry.deleted&&entry.key == key){
+                return &entry.value;
+            }
+        }
+        return nullptr;
+    }
+
     //erase key and value pair if exist
     bool Erase(const K& key){
         //set initial index

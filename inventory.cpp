@@ -6,22 +6,20 @@ void Inventory::AddProduct(const Product& item){
     const Vector<std::string>& cats = item.GetCategories();
 
     for(std::size_t i = 0;i<cats.Size();i++){
-        Vector<std::string> ids;
-        //if category already exist
-        if(by_category.Find(cats[i],ids)){
-            bool exist = false;
+        Vector<std::string>* ids = by_category.FindMutable(cats[i]);
+        if(ids){
             //check id is already exist
-            for(std::size_t j = 0;j<ids.Size();j++){
-                if(ids[j] == item.GetId()){
+            bool exist = false;
+            for(std::size_t j = 0;j<ids->Size();j++){
+                if((*ids)[j] == item.GetId()){
                     exist = true;
                     break;
                 }
             }
             //add in that vector
             if(!exist){
-                ids.PushBack(item.GetId());
+                ids->PushBack(item.GetId());
             }
-            by_category.Insert(cats[i],ids);
         //if category not exist
         }else{
             //create new one

@@ -39,7 +39,7 @@ public:
             //free old memory
             delete[] data;
             data = new_data;
-            //cop size and capacity
+            //copy size and capacity
             size_ = other.size_;
             capacity_ = other.capacity_;
         }

@@ -75,6 +75,20 @@ void TestHashmapEmptyKey(){
     std::cout<<"---------------------------------\n";
 
 }
+//test hashmap internal access
+void TestHashmapFindMutable(){
+    HashMap<std::string, int> hashmap;
+    hashmap.Insert("A",1);
+    int* value = hashmap.FindMutable("A");
+    assert(value != nullptr);
+    *value = 4;
+    int out;
+    assert(hashmap.Find("A",out));
+    assert(out == 4);
+    std::cout<<"Pass TestHashmapFindMutable\n";
+    std::cout<<"---------------------------------\n";
+
+}
 //test inventory basic operation
 void TestInventoryBasic(){
     std::cout<<"Running testInventoryBasic"<<std::endl;
@@ -131,6 +145,7 @@ void TestAll(){
     TestVectorEdge();
     TestHashmapBasic();
     TestHashmapEmptyKey();
+    TestHashmapFindMutable();
     TestInventoryBasic();
     TestInventoryInvalidId();
     TestInventoryInvalidCategory();

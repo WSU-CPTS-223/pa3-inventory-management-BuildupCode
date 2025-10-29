@@ -26,6 +26,7 @@ void TestVectorEdge();
 
 void TestHashmapBasic();
 void TestHashmapEmptyKey();
+void TestHashmapFindMutable();
 
 void TestInventoryBasic();
 void TestInventoryInvalidId();
